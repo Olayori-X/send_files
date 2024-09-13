@@ -11,7 +11,9 @@ class FileController extends Controller
     {
         try {
             // Directory to store files
-            $storagePath = 'C:/Users/PC/OneDrive/Desktop/send';
+            $storagePath = 'C:\Users\username\Desktop\send';
+            // $storagePath = '/home/moses/Desktop/send';
+
 
             // Ensure directory exists
             if (!File::exists($storagePath)) {
@@ -19,18 +21,18 @@ class FileController extends Controller
             }
 
             // Create 100 .send files
-            for ($i = 1; $i <= 100; $i++) {
+               for ($i = 1; $i <= 100; $i++) {
                 $filename = "file_$i.send";
                 $content = "T$i"; // Customize content as needed
-                File::put("$storagePath/$filename", $content);
+                File::put("$storagePath\\$filename", $content);
             }
 
             // print_r($content);
             // Create a ZIP file of all .send files
             $zip = new ZipArchive;
             $zipFileName = 'send_files.zip';
-            $zipFilePath = "/$storagePath/$zipFileName";
-            dd($zipFilePath);
+            $zipFilePath = "\\$storagePath\\$zipFileName";
+            // dd($zipFilePath);
 
             if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
                 // Add all the .send files to the ZIP
@@ -41,7 +43,10 @@ class FileController extends Controller
             }
 
             // Return the ZIP file as a download
-            return response()->download($zipFilePath)->deleteFileAfterSend(true); // Optional: delete after download
+            // return response()->download($zipFilePath)->deleteFileAfterSend(true); // Optional: delete after download
+            return response()->json([
+                "message" => "Successfully doing what u like",
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'response' => false,
