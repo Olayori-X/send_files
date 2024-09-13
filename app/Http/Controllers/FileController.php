@@ -11,7 +11,11 @@ class FileController extends Controller
     {
         try {
             // Directory to store files
-            $storagePath = 'C:\Users\username\Desktop\send';
+            // $storagePath = 'C:\Users\yo\Desktop\send';
+            $storagePath = "C:\\Users\\PC\\OneDrive\\Desktop\\send";
+
+            // $storagePath = 'C:\Users\PC\OneDrive\Desktop\send'; // Uncomment this if this code does work
+
             // $storagePath = '/home/moses/Desktop/send';
 
 
@@ -31,7 +35,7 @@ class FileController extends Controller
             // Create a ZIP file of all .send files
             $zip = new ZipArchive;
             $zipFileName = 'send_files.zip';
-            $zipFilePath = "\\$storagePath\\$zipFileName";
+            $zipFilePath = "$storagePath\\$zipFileName";
             // dd($zipFilePath);
 
             if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
